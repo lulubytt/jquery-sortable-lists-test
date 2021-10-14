@@ -185,7 +185,7 @@
 				 $('.modalList').empty();
 
 				$.each( data, function(i, item){
-					items.push( "<li><a id='" + item.id + "' name='" + item.name + "'>" + item.name + "</a></li>" );
+					items.push( "<li><div><a id='" + item.id + "' name='" + item.name + "'>" + item.name + "</a></div></li>" );
 				}) ;
 
 				$('.modalList').append(items);
@@ -197,7 +197,7 @@
 	            var pageID = $(this).attr('id'),
 	                pageName = $(this).attr('name');
 
-	            var content = "<li><a id='" + pageID + "' name='" + pageName + "'>" + pageName + " <span id='moduleRemove' class='close'>×</span></a></li>" ;
+	            var content = "<li><div><a id='" + pageID + "' name='" + pageName + "'>" + pageName + " <span id='moduleRemove' class='close'>×</span></a></div></li>" ;
 
 	            $('.modal').hide();
 	            $('.overlay').hide();

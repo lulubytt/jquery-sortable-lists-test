@@ -1,0 +1,224 @@
+<html>
+	<head>
+		<style>
+			body {
+				background:  #efefef;
+  				font-family: 'Roboto', sans-serif;
+			}
+
+			section {
+				padding:  100px;
+				width:  50%;
+				margin:  0 auto;
+				background:  #fff;
+			}
+			.btn {
+			    display: inline-block;
+			    padding: 6px 12px;
+			    font-size: 14px;
+			    font-weight: normal;
+			    line-height: 1.45;
+			    text-align: center;
+			    vertical-align: middle;
+			    cursor: pointer;
+			    border: 1px solid transparent;
+			    border-radius: 4px;
+			    color: #fff;
+			    background-color: #5cb85c;
+			    border-color: #4cae4c;  
+			}
+
+			.placeholderClass  {
+				background-color: #ffd777;
+				border-color: #ffd777;
+				box-sizing: border-box;
+				min-height:30px;
+				min-width:30px;
+			}
+
+			.list {
+				padding: 30px;
+				width: 80%;
+			  	list-style-type: none;
+			  	padding: 0;
+			 }
+
+			 .list li {
+				margin: 8px 0;
+				background: #efefef;
+			    padding: 15px 35px 15px 35px !important;
+			}
+
+			.list li a {
+			    display: block;
+				width: 95%;
+			    padding: 12px 24px;
+				text-transform: capitalize;
+				border-color: #eea236;
+			    border-radius: 4px;
+				background: #eea236;
+				color: #FFF;
+				position: relative;
+				cursor: move;
+			    font-size: 12px;
+			    text-decoration: none;
+			 }
+
+			.list li ul {
+				padding-top: 10px;
+			}
+
+			.list li ul li {
+				padding: 5px 0 !important;
+				margin: 0;
+			}
+				
+			.list li ul li a {
+			    display: block;
+				width: 95%;
+			    padding: 12px 24px;
+				text-transform: capitalize;
+				border-color: #eea236;
+			    border-radius: 4px;
+				background: #eea236;
+				color: #FFF;
+				position: relative;
+				cursor: move;
+			    font-size: 12px;
+			    text-decoration: none;
+			 }
+
+			#s-l-base li {
+				display: block;
+				width: 100%;
+				border-color: #eea236;
+				background: #eea236;
+				color: #FFF;
+				border-radius: 4px;
+				padding: 12px 24px;
+				text-transform: capitalize;
+				cursor: move;
+			}
+
+			#s-l-base li a {
+				color: #FFF;
+			}
+
+			.overlay {
+				position: absolute;
+				width:  100%;
+				height:  100%;
+				top: 0;
+				left:  0;
+				background-color:  rgba(0,0,0,0.6);
+			}
+
+			.modal {
+				position: absolute;
+				background:  #FFF;
+				width:  500px;
+				top:  10%;
+				left:  50%;
+				transform:  translateX(-50%);
+				z-index: 10;
+				padding:  15px;
+			}
+
+			.modal p {
+				font-size:  13px;
+				color:  #999;
+			}
+
+			.modalList {
+				width:  100%;
+			}
+
+			.modalList li a {
+				width:  90%;
+				display:  block;
+				cursor:  pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<section>
+			<a class="btn btnAdd">Add Menu Items </a>
+			<ul id="nestedSortable" class="list list--pages"></ul>
+		</section>
+		<!-- modal -->
+		<div class="overlay" style="display: none;"></div>
+		<div class="modal" style="display: none;">
+			<p>click on a menu item to add</p>
+			<ul class="list modalList"></ul>
+		</div>
+
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script src="jquery-sortable-lists.js"></script>
+
+		<script>
+			var data = 
+			[
+				{
+					"id": "1",
+					"name": "homepage"
+				},
+				{
+					"id": "2",
+					"name": "subpage 1"
+				},
+				{
+					"id": "3",
+					"name": "subpage 2"
+				},
+				{
+					"id": "4",
+					"name": "subpage 3"
+				}
+			];
+
+
+			$('.btnAdd').on('click', function(){
+				var items = [];
+
+				 $('.modalList').empty();
+
+				$.each( data, function(i, item){
+					items.push( "<li><a id='" + item.id + "' name='" + item.name + "'>" + item.name + "</a></li>" );
+				}) ;
+
+				$('.modalList').append(items);
+				$('.overlay').show();
+				$('.modal').show();
+			});
+
+			$('.modal').on('click', '.modalList a', function(){
+	            var pageID = $(this).attr('id'),
+	                pageName = $(this).attr('name');
+
+	            var content = "<li><a id='" + pageID + "' name='" + pageName + "'>" + pageName + " <span id='moduleRemove' class='close'>×</span></a></li>" ;
+
+	            $('.modal').hide();
+	            $('.overlay').hide();
+
+	            setTimeout( function(){
+	                $('#nestedSortable').append(content);
+	             }, 500 )
+	        });
+
+			$('#nestedSortable').sortableLists({
+	            listSelector: 'ul',
+	            insertZonePlus: true,
+	            insertZone: 50,   
+	            maxLevels: 2, 
+	            placeholderClass: 'placeholderClass'
+	        });
+
+		</script>
+
+
+
+
+	</body>
+</html>
